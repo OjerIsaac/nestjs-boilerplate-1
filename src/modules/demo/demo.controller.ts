@@ -1,13 +1,25 @@
-import { Controller, Get, Res, Param, HttpStatus } from "@nestjs/common";
+import { Controller, Get, Res, Param, HttpStatus, Post, Body } from "@nestjs/common";
 import { DemoService } from "./demo.service";
 import { Response } from "express";
 import { validateUUID } from "../../lib/validation";
+import { CreateDemoInput } from "./demo.model";
 
-@Controller()
+@Controller({ path: "demo", version: "1" })
 export class DemoController {
     constructor(private readonly demoService: DemoService) {}
 
-    @Get()
+    @Post()
+    async createDemo(@Body() payload: CreateDemoInput, @Res() res: Response) {
+        const demo = await this.demoService.createDemo(payload);
+
+        return res.status(HttpStatus.CREATED).json({
+            message: "record created successfully",
+            data: demo,
+            statusCode: HttpStatus.CREATED,
+        });
+    }
+
+    @Get(":id")
     async getDemo(@Res() res: Response, @Param("id") id: string) {
         if (!validateUUID(id)) {
             return res.status(HttpStatus.BAD_REQUEST).json({

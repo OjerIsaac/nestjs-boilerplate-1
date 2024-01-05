@@ -17,13 +17,43 @@ describe("DemoService", () => {
                 DemoService,
                 {
                     provide: demoRepositoryToken,
-                    useClass: Repository,
+                    useValue: {
+                        findOne: jest.fn(),
+                        save: jest.fn(),
+                        create: jest.fn(),
+                        find: jest.fn(),
+                    },
                 },
             ],
         }).compile();
 
         demoService = module.get<DemoService>(DemoService);
         demoRepository = module.get<Repository<Demo>>(demoRepositoryToken);
+    });
+
+    describe("Testing <createDemo>", () => {
+        it("it should create a new demo", async () => {
+            const payload = {
+                firstName: "isaac",
+                lastName: "ojerumu",
+            };
+            const saveDemo = {
+                id: "4f307dac-6973-4780-8c71-58c8728c3758",
+                firstName: payload.firstName,
+                lastName: payload.lastName,
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            };
+
+            jest.spyOn(demoRepository, "create").mockReturnValueOnce(saveDemo);
+            jest.spyOn(demoRepository, "save").mockResolvedValueOnce(saveDemo);
+
+            const response = await demoService.createDemo(payload);
+
+            expect(demoRepository.create).toHaveBeenCalledWith(payload);
+            expect(demoRepository.save).toHaveBeenCalledWith(saveDemo);
+            expect(response).toEqual(saveDemo);
+        });
     });
 
     describe("Testing <getDemo>", () => {
