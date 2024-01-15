@@ -4,7 +4,6 @@
 - Completely written in [Typescript](https://typescriptlang.org/)
 - [Nestjs](https://docs.nestjs.com/) Nodejs framework
 - [Postgres](https://www.postgresql.org/docs/) Powerful, open source object-relational database
-- [MongoDB](https://www.mongodb.com/docs/manual/) A document database designed for ease of application development and scaling.
 - [TypeORM](https://typeorm.io/) ORM
 
 #### RUN
