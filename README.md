@@ -4,7 +4,9 @@
 - Completely written in [Typescript](https://typescriptlang.org/)
 - [Nestjs](https://docs.nestjs.com/) Nodejs framework
 - [Postgres](https://www.postgresql.org/docs/) Powerful, open source object-relational database
+- [MongoDB](https://www.mongodb.com/docs/manual/) A document database designed for ease of application development and scaling.
 - [TypeORM](https://typeorm.io/) ORM
+- [Mongoose](https://mongoosejs.com/) MongoDB object modeling
 
 #### RUN
 - clone repo
@@ -29,4 +31,3 @@ There are two pre-commit hooks,
 
 Make sure that your test db is separate from the development db else your data will be cleared.
 NOTE: Before testing, create test migration by running `yarn run migrate:test`
-
